@@ -2,17 +2,17 @@
 
 public class FollowedByCamera : MonoBehaviour
 {
-    public Camera camera;
+    public Camera targetCamera;
 
     private Vector3 offset;
 
     private void Start()
     {
-        offset = camera.transform.position - transform.position;
+        offset = targetCamera.transform.position - transform.position;
     }
 
     private void Update()
     {
-        camera.transform.position = transform.position + offset;
+        targetCamera.transform.position = transform.position + offset;
     }
 }
