@@ -2,48 +2,57 @@
 
 public class HealthComponent : MonoBehaviour
 {
-    public int MaxHealth = 100;
-    public int CurrentHealth;
+    public int maxHealth = 100;
+    public int currentHealth;
+    public RectTransform healthBar;
 
-    private bool _isAlive;
-    private bool _isDamaged;
+    private bool isAlive;
+    private bool isDamaged;
 
     private void Start()
     {
-        _isAlive = true;
-        CurrentHealth = MaxHealth;
+        isAlive = true;
+        currentHealth = maxHealth;
     }
 
     private void Update()
     {
-        if (_isDamaged)
+        if (isDamaged)
         {
             Debug.Log("Damage handled");
 
-            _isDamaged = false;
+            isDamaged = false;
         }
     }
 
     public void TakeDamage(int amount)
     {
-        if (_isAlive)
+        if (isAlive)
         {
             Debug.Log("Damage taken");
 
-            _isDamaged = true;
-            CurrentHealth -= amount;
+            isDamaged = true;
+            currentHealth -= amount;
 
-            if (CurrentHealth <= 0)
+            float healthbarWidth = CalculateHealthbarWidth();
+            healthBar.sizeDelta = new Vector2(healthbarWidth, healthBar.sizeDelta.y);
+
+            if (currentHealth <= 0)
             {
                 Die();
             }
         }
     }
 
+    private float CalculateHealthbarWidth()
+    {
+        return currentHealth * healthBar.sizeDelta.x / maxHealth;
+    }
+
     private void Die()
     {
         Debug.Log("Object died");
 
-        _isAlive = false;
+        isAlive = false;
     }
 }

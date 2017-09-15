@@ -2,17 +2,12 @@
 
 public class OnClickDamageDealer : MonoBehaviour
 {
-    public int DamageAmount = 33;
+    public int damageAmount = 33;
 
-    private HealthComponent _healthComponent;
-
-    private void Start()
-    {
-        _healthComponent = GetComponent<HealthComponent>();
-    }
+    public HealthComponent healthComponent;
 
     private void OnMouseDown()
     {
-        _healthComponent.TakeDamage(DamageAmount);
+        healthComponent.TakeDamage(damageAmount);
     }
 }
