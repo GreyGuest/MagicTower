@@ -7,10 +7,10 @@
 /[Bb]uild/
 /[Bb]uilds/
 /Assets/AssetStoreTools*
-/Assets/Plugins/Editor/JetBrains
+/Assets/Plugins*
 sysinfo.txt
 *.pidb.meta
- 
+/ProjectSettings/ProjectVersion.txt
 # VS/Rider/MD/Consulo
 ExportedObj/
 .consulo/

@@ -1,16 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
-    public RectTransform healthBar;
+    public float maxHealth = 100;
+    public float currentHealth;
+
+    private float healthbarBackgroundWidth;
+
+    private RectTransform healthbar;
 
     private bool isAlive;
     private bool isDamaged;
 
     private void Start()
     {
+        healthbar = gameObject.GetComponentInChildren<Canvas>()
+            .GetComponentsInChildren<Image>()[1]
+            .GetComponent<RectTransform>();
+
+        healthbarBackgroundWidth = healthbar.sizeDelta.x;
+
         isAlive = true;
         currentHealth = maxHealth;
     }
@@ -35,7 +45,7 @@ public class HealthComponent : MonoBehaviour
             currentHealth -= amount;
 
             float healthbarWidth = CalculateHealthbarWidth();
-            healthBar.sizeDelta = new Vector2(healthbarWidth, healthBar.sizeDelta.y);
+            healthbar.sizeDelta = new Vector2(healthbarWidth, healthbar.sizeDelta.y);
 
             if (currentHealth <= 0)
             {
@@ -46,13 +56,13 @@ public class HealthComponent : MonoBehaviour
 
     private float CalculateHealthbarWidth()
     {
-        return currentHealth * healthBar.sizeDelta.x / maxHealth;
+        return currentHealth * healthbarBackgroundWidth / maxHealth;
     }
 
     private void Die()
     {
         Debug.Log("Object died");
-
+        currentHealth = 0;
         isAlive = false;
     }
 }
