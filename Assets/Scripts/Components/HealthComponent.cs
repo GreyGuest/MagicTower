@@ -5,6 +5,7 @@ public class HealthComponent : MonoBehaviour
 {
     public float maxHealth = 100;
     public float currentHealth;
+    public float despawnTime = 1f;
 
     private float healthbarBackgroundWidth;
 
@@ -39,8 +40,6 @@ public class HealthComponent : MonoBehaviour
     {
         if (isAlive)
         {
-            Debug.Log("Damage taken");
-
             isDamaged = true;
             currentHealth -= amount;
 
@@ -61,8 +60,8 @@ public class HealthComponent : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Object died");
         currentHealth = 0;
         isAlive = false;
+        Destroy(gameObject, despawnTime);
     }
 }

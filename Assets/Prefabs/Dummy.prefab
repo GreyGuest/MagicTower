@@ -91,7 +91,6 @@ GameObject:
   - component: {fileID: 33513803083694338}
   - component: {fileID: 65905479179048456}
   - component: {fileID: 23568898164249988}
-  - component: {fileID: 114358589956832148}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -106,7 +105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1651359845268220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.86, y: 0.7482414, z: -3.68}
+  m_LocalPosition: {x: 2.86, y: 0, z: -3.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4527360278368122}
@@ -189,18 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2691e91ab0bde794ab78ee7001107558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114358589956832148
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1956022167221222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6772a8bf605eb294486818d8a18bf314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 33
 --- !u!114 &114404081878373722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  despawnTime: 0.5
 --- !u!114 &114719008212203686
 MonoBehaviour:
   m_ObjectHideFlags: 1
