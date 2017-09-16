@@ -2,13 +2,13 @@
 
 public class OnClickDamageDealer : MonoBehaviour
 {
-    public int damageAmount = 33;
+    public float damageAmount = 33;
 
-    private HealthComponent healthComponent;
+    private Health healthComponent;
 
     private void Start()
     {
-        healthComponent = GetComponentInParent<HealthComponent>();
+        healthComponent = GetComponentInParent<Health>();
     }
 
     private void OnMouseDown()

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthComponent : MonoBehaviour
+public class Health : MonoBehaviour
 {
-    public float maxHealth = 100;
+    public float maxHealth = 100f;
     public float currentHealth;
     public float despawnTime = 1f;
 
@@ -36,14 +36,14 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (isAlive)
         {
             isDamaged = true;
             currentHealth -= amount;
 
-            float healthbarWidth = CalculateHealthbarWidth();
+            var healthbarWidth = CalculateHealthbarWidth();
             healthbar.sizeDelta = new Vector2(healthbarWidth, healthbar.sizeDelta.y);
 
             if (currentHealth <= 0)

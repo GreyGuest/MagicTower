@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FacingCameraComponent : MonoBehaviour
+public class FacingCamera : MonoBehaviour
 {
     private GameObject targetCamera;
 

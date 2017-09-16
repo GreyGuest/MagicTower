@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class FireballSpellEffect : MonoBehaviour
 {
-    public int damage = 50;
+    public float damage = 50f;
 
     [Header("Explosion")] 
-    public int explosionDamage = 10;
-    public float explosionRadius = 3;
+    public float explosionDamage = 10f;
+    public float explosionRadius = 3f;
 
     private readonly List<int> damagedGameObjectList = new List<int>();
+    private readonly Color explosionRadiusGizmoColor = new Color(1f, 0f, 0f, 0.5f);
 
     private void OnCollisionEnter(Collision other)
     {
@@ -25,10 +27,10 @@ public class FireballSpellEffect : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void DealDamageToTargetWithCollider(Collider targetCollider, int damageAmount)
+    private void DealDamageToTargetWithCollider(Collider targetCollider, float damageAmount)
     {
         var healthComponent = targetCollider.gameObject
-            .GetComponentInParent<HealthComponent>();
+            .GetComponentInParent<Health>();
 
         if (healthComponent != null && !damagedGameObjectList.Contains(healthComponent.GetInstanceID()))
         {
@@ -39,7 +41,7 @@ public class FireballSpellEffect : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
+        Gizmos.color = explosionRadiusGizmoColor;
         Gizmos.DrawSphere(transform.position, explosionRadius);
     }
 }
