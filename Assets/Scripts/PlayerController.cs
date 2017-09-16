@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
-    public GameObject target;
+public class PlayerController : MonoBehaviour
+{
     public float speed = 8.0f;
     public float gravity = 20.0f;
     public float jumpValue = 6.0f;
@@ -11,7 +9,24 @@ public class PlayerController : MonoBehaviour {
     public int jumpCount = 0;
     public bool djump = true;
 
-    void Update ()
+    [Header("Spells")] 
+    public Transform spellSpawn;
+
+    [Header("Fireball")] 
+    public GameObject fireballPrefab;
+    public float fireballSpeed = 6f;
+    public float fireballExistanceTime = 2f;
+    public float fireballCooldown = 1f;
+
+    private float fireballCastedTime;
+
+    void Update()
+    {
+        HandleMovement();
+        HandleSpellCast();
+    }
+
+    private void HandleMovement()
     {
         CharacterController controller = GetComponent<CharacterController>();
         if (controller.isGrounded)
@@ -28,7 +43,7 @@ public class PlayerController : MonoBehaviour {
             djump = false;
         }
 
-        if (djump == true)
+        if (djump)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -39,6 +54,29 @@ public class PlayerController : MonoBehaviour {
 
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
-        //transform.LookAt(target.transform.position);
-	}
+    }
+
+    private void HandleSpellCast()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            CastFireBall();
+        }
+    }
+
+    private void CastFireBall()
+    {
+        if (Time.time > fireballCastedTime + fireballCooldown)
+        {
+            fireballCastedTime = Time.time;
+
+            GameObject fireball = Instantiate(fireballPrefab, spellSpawn.position, spellSpawn.rotation);
+            fireball.GetComponent<Rigidbody>().velocity = fireball.transform.forward * fireballSpeed;
+            Destroy(fireball, fireballExistanceTime);
+        }
+        else
+        {
+            Debug.Log("Fireball is on cooldown. Remaining " + (fireballCastedTime + fireballCooldown - Time.time));
+        }
+    }
 }

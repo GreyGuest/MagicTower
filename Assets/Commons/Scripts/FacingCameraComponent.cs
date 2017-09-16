@@ -2,15 +2,15 @@
 
 public class FacingCameraComponent : MonoBehaviour
 {
-    private GameObject camera;
+    private GameObject targetCamera;
 
     private void Start()
     {
-        camera = GameObject.FindWithTag("MainCamera");
+        targetCamera = GameObject.FindWithTag("MainCamera");
     }
 
     private void Update()
     {
-        transform.rotation = camera.transform.rotation;
+        transform.rotation = targetCamera.transform.rotation;
     }
 }
