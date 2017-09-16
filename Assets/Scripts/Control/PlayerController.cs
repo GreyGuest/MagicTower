@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = 20.0f;
     public float jumpValue = 6.0f;
     private Vector3 moveDirection = Vector3.zero;
-    public int jumpCount = 0;
+    public int jumpCount;
     public bool djump = true;
 
     [Header("Spells")] 
@@ -14,13 +14,18 @@ public class PlayerController : MonoBehaviour
 
     [Header("Fireball")] 
     public GameObject fireballPrefab;
-    public float fireballSpeed = 6f;
+    public float fireballSpeed = 20f;
     public float fireballExistanceTime = 2f;
-    public float fireballCooldown = 1f;
+    public float firaballCooldownTime = 1f;
+    
+    private Cooldown fireballCooldown;
 
-    private float fireballCastedTime;
+    private void Start()
+    {
+        fireballCooldown = new Cooldown(firaballCooldownTime);
+    }
 
-    void Update()
+    private void Update()
     {
         HandleMovement();
         HandleSpellCast();
@@ -66,17 +71,16 @@ public class PlayerController : MonoBehaviour
 
     private void CastFireBall()
     {
-        if (Time.time > fireballCastedTime + fireballCooldown)
-        {
-            fireballCastedTime = Time.time;
-
+        if (!fireballCooldown.IsInProgress()) {
+            fireballCooldown.Start();
+            
             GameObject fireball = Instantiate(fireballPrefab, spellSpawn.position, spellSpawn.rotation);
             fireball.GetComponent<Rigidbody>().velocity = fireball.transform.forward * fireballSpeed;
             Destroy(fireball, fireballExistanceTime);
         }
         else
         {
-            Debug.Log("Fireball is on cooldown. Remaining " + (fireballCastedTime + fireballCooldown - Time.time));
+            Debug.Log("Fireball is on cooldown. Remaining " + fireballCooldown.GetRemainingValue());
         }
     }
 }
