@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     public GameObject fireballPrefab;
     public float fireballSpeed = 6f;
     public float fireballExistanceTime = 2f;
+    public float fireballCooldown = 1f;
+
+    private float fireballCastedTime;
 
     void Update()
     {
@@ -63,8 +66,17 @@ public class PlayerController : MonoBehaviour
 
     private void CastFireBall()
     {
-        GameObject fireball = Instantiate(fireballPrefab, spellSpawn.position, spellSpawn.rotation);
-        fireball.GetComponent<Rigidbody>().velocity = fireball.transform.forward * fireballSpeed;
-        Destroy(fireball, fireballExistanceTime);
+        if (Time.time > fireballCastedTime + fireballCooldown)
+        {
+            fireballCastedTime = Time.time;
+
+            GameObject fireball = Instantiate(fireballPrefab, spellSpawn.position, spellSpawn.rotation);
+            fireball.GetComponent<Rigidbody>().velocity = fireball.transform.forward * fireballSpeed;
+            Destroy(fireball, fireballExistanceTime);
+        }
+        else
+        {
+            Debug.Log("Fireball is on cooldown. Remaining " + (fireballCastedTime + fireballCooldown - Time.time));
+        }
     }
 }
